@@ -33,8 +33,12 @@ jobs:
           push: true
           tags: yourdockerhub/image-name:latest
 
-      - name: Apply new image to Kubernetes
+      - name: Decode Kubeconfig
+        run: |
+          echo "${{ secrets.KUBECONFIG_B64 }}" | base64 -d > kubeconfig.yaml
+
+      - name: Deploy to Kubernetes
         env:
-          KUBECONFIG: ${{ secrets.KUBECONFIG }}
+          KUBECONFIG: kubeconfig.yaml
         run: |
           kubectl set image deployment/your-deployment your-container=yourdockerhub/image-name:latest
