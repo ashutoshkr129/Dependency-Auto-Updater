@@ -1,0 +1,12 @@
+{
+  "extends": ["config:base"],
+  "docker": {
+    "enabled": true
+  },
+  "packageRules": [
+    {
+      "matchDatasources": ["docker"],
+      "automerge": true
+    }
+  ]
+}
